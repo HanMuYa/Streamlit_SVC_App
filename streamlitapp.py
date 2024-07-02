@@ -81,7 +81,7 @@ with st.expander("Predict result", True):
     st.info(f"The predicted probability of sarcopenic obesity is {str(round(p_r, 2))}%.") # 展示预测结果
     
     # 单样本特征影响图
+    st.write(pd.DataFrame([st.session_state["data"]]))
     shap_values = explainer2.shap_values(pd.DataFrame([st.session_state["data"]]))
-    st.write(shap_values)
     shap.force_plot(explainer2.expected_value, shap_values[0], pd.DataFrame([st.session_state["data"]]).iloc[0, :], matplotlib=True)
     st.pyplot(plt.gcf()) # 展示shap图
