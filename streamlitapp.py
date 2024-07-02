@@ -74,8 +74,6 @@ with st.form("predict"):
 
 model, shap_values3, explainer2 = load_model_fun() # 获取模型与shap图
 
-st.write(shap_values3)
-
 with st.expander("Predict result", True):
     r = model.predict(np.array([list(st.session_state["data"].values())]))
     p_r = model.predict_proba(np.array([list(st.session_state["data"].values())])) # 预测结果
@@ -83,5 +81,6 @@ with st.expander("Predict result", True):
     st.info(f"The predicted probability of sarcopenic obesity is {str(round(p_r, 2))}%.") # 展示预测结果
     
     # 单样本特征影响图
-    shap.force_plot(explainer2.expected_value, p_r/100, pd.DataFrame([st.session_state["data"]]).iloc[0, :], matplotlib=True)
+    shap_values = explainer2.shap_values(pd.DataFrame([st.session_state["data"]]).iloc[0, :])
+    shap.force_plot(explainer2.expected_value, shap_values[0], pd.DataFrame([st.session_state["data"]]).iloc[0, :], matplotlib=True)
     st.pyplot(plt.gcf()) # 展示shap图
