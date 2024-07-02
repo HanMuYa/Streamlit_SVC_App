@@ -14,7 +14,7 @@ from sklearn.metrics import recall_score
 import joblib # 如果没有安装请使用pip安装
 
 # 解决画图中文显示问题
-plt.rcParams['font.sans-serif'] = ['SimHei']
+#plt.rcParams['font.sans-serif'] = ['SimHei']
 plt.rcParams['axes.unicode_minus'] = True
 
 # 标题设置 "XX预测系统"改成你想设置的
