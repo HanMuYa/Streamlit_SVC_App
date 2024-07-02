@@ -55,13 +55,12 @@ def load_model_fun():
     return loaded_model, plt.gcf()
 
 x = "Gender,Time to FTS,Neck circumference,Thigh circumference,Time to FTSS,Waist circumference,Age,BMI".split(",")
-
 if "data" not in st.session_state.keys():
     st.session_state["data"] = {i:None for i in x}
 
 # 输入表单
 with st.form("predict"):
-    st.session_state["data"][x[0]] = p1[st.selectbox(x[0], list(p1.keys()), index=0)]
+    st.session_state["data"][x[0]] = st.selectbox(x[0], [1,2], index=0)
     st.session_state["data"][x[1]] = st.selectbox(x[1], [0, 1], index=0)
     st.session_state["data"][x[2]] = st.number_input(x[1], step=0.1, placeholder=x[1], value=30.0, min_value=0.0, max_value=100.0)
     st.session_state["data"][x[3]] = st.number_input(x[2], step=0.01, placeholder=x[2], value=50.00, min_value=0.00, max_value=100.00)
