@@ -20,6 +20,7 @@ plt.rcParams['axes.unicode_minus'] = True
 # 标题设置 "XX预测系统"改成你想设置的
 #st.markdown('<h1 style="text-align: center; color: white; background: #ff4b4b; font-size: 18px; border-radius: .5rem; margin-bottom: 15px;">XX预测系统</h1>', unsafe_allow_html=True)
 
+
 # 缓存数据, 使用缓存此部分代码只执行一次，可大幅度优化运行时长
 @st.cache_resource
 def load_model_fun():
@@ -49,12 +50,11 @@ def load_model_fun():
     plt.rcParams['font.serif'] = 'Arial'
     plt.rcParams['font.size'] = 8
     plt.rcParams['font.weight'] = 'bold'
-    # 单样本特征影响图
-    shap.force_plot(explainer2.expected_value, shap_values3[1], x_test.iloc[1, :], matplotlib=True)
     
-    return loaded_model, plt.gcf()
+    return loaded_model, shap_values3, explainer2
 
 x = "Gender,Time to FTS,Neck circumference,Thigh circumference,Time to FTSS,Waist circumference,Age,BMI".split(",")
+
 if "data" not in st.session_state.keys():
     st.session_state["data"] = {i:None for i in x}
 
@@ -72,12 +72,14 @@ with st.form("predict"):
     col = st.columns(5)
     submit = col[2].form_submit_button("Start Predict", use_container_width=True) # 预测按钮
 
-model, fig = load_model_fun() # 获取模型与shap图
-
+model, shap_values3, explainer2 = load_model_fun() # 获取模型与shap图
 
 with st.expander("Predict result", True):
     r = model.predict(np.array([list(st.session_state["data"].values())]))
     p_r = model.predict_proba(np.array([list(st.session_state["data"].values())])) # 预测结果
     p_r = (p_r[0]*100)[0] if r[0]==0 else (p_r[0]*100)[1] # 预测概率
     st.info(f"The predicted probability of sarcopenic obesity is {str(round(p_r, 2))}%.") # 展示预测结果
-    st.pyplot(fig) # 展示shap图
+    
+    # 单样本特征影响图
+    shap.force_plot(explainer2.expected_value, shap_values3[1], pd.DataFrame([st.session_state["data"]]).iloc[0, :], matplotlib=True)
+    st.pyplot(plt.gcf()) # 展示shap图
