@@ -77,7 +77,7 @@ model, shap_values3, explainer2 = load_model_fun() # 获取模型与shap图
 with st.expander("Predict result", True):
     r = model.predict(np.array([list(st.session_state["data"].values())]))
     p_r = model.predict_proba(np.array([list(st.session_state["data"].values())])) # 预测结果
-    p_r = (p_r[0]*100)[1] # 预测概率
+    p_r = (p_r[0]*100)[0] # 预测概率
     st.info(f"The predicted probability of sarcopenic obesity is {str(round(p_r, 2))}%.") # 展示预测结果
     
     # 单样本特征影响图
