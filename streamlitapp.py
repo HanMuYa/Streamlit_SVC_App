@@ -74,6 +74,8 @@ with st.form("predict"):
 
 model, shap_values3, explainer2 = load_model_fun() # 获取模型与shap图
 
+st.write(shap_values3)
+
 with st.expander("Predict result", True):
     r = model.predict(np.array([list(st.session_state["data"].values())]))
     p_r = model.predict_proba(np.array([list(st.session_state["data"].values())])) # 预测结果
