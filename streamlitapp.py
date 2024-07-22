@@ -53,7 +53,7 @@ def load_model_fun():
     
     return loaded_model, shap_values3, explainer2
 
-x = "Gender,Time to FTS,Neck circumference,Thigh circumference,Time to FTSS,Waist circumference,Age,BMI".split(",")
+x = "Gender,Time to FTS,Neck circumference,Thigh circumference,Time to FTSS,Waist circumference,Age,BMI(kg/m²)".split(",")
 
 if "data" not in st.session_state.keys():
     st.session_state["data"] = {i:None for i in x}
@@ -62,8 +62,8 @@ if "data" not in st.session_state.keys():
 with st.form("predict"):
     st.session_state["data"][x[0]] = st.selectbox(x[0], [1,2], index=0)
     st.session_state["data"][x[1]] = st.selectbox(x[1], [0, 1], index=0)
-    st.session_state["data"][x[2]] = st.number_input(x[1], step=0.1, placeholder=x[1], value=30.0, min_value=0.0, max_value=100.0)
-    st.session_state["data"][x[3]] = st.number_input(x[2], step=0.01, placeholder=x[2], value=50.00, min_value=0.00, max_value=100.00)
+    st.session_state["data"][x[2]] = st.number_input(x[2], step=0.1, placeholder=x[1], value=30.0, min_value=0.0, max_value=100.0)
+    st.session_state["data"][x[3]] = st.number_input(x[3], step=0.01, placeholder=x[2], value=50.00, min_value=0.00, max_value=100.00)
     st.session_state["data"][x[4]] = st.selectbox(x[4], [1, 2, 3, 4], index=0)
     st.session_state["data"][x[5]] = st.number_input(x[5], step=0.1, placeholder=x[5], value=80.0, min_value=0.0, max_value=200.0)
     st.session_state["data"][x[6]] = st.number_input(x[6], step=1, placeholder=x[6], value=60, min_value=0, max_value=100)
