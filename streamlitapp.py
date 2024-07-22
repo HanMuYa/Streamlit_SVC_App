@@ -22,7 +22,7 @@ plt.rcParams['axes.unicode_minus'] = True
 
 s = '''
     <style>
-        [data-testid="stMarkdownContainer"] p {
+        #root > div:nth-child(1) > div.withScreencast > div > div > div > section > div.block-container.st-emotion-cache-13ln4jf.ea3mdgi5 > div > div > div > div.st-emotion-cache-0.eqpbllx4 > details > div > div > div > div > div:nth-child(1) > div > div > div > div > div > div > p {
             font-size: 25px;
         }
     </style>
