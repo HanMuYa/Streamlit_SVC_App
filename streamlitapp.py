@@ -20,6 +20,15 @@ plt.rcParams['axes.unicode_minus'] = True
 # 标题设置 "XX预测系统"改成你想设置的
 #st.markdown('<h1 style="text-align: center; color: white; background: #ff4b4b; font-size: 18px; border-radius: .5rem; margin-bottom: 15px;">XX预测系统</h1>', unsafe_allow_html=True)
 
+s = '''
+    <style>
+        [data-testid="stMarkdownContainer"] p {
+            font-size: 25px;
+        }
+    </style>
+'''
+
+st.markdown(s, unsafe_allow_html=True)
 
 # 缓存数据, 使用缓存此部分代码只执行一次，可大幅度优化运行时长
 @st.cache_resource
